@@ -81,11 +81,57 @@ arr = np.array([-1, 2, 5], dtype=np.float32)
 print(repr(arr))
 ```
 
+**Output:**
+
 ```output
 array([-1.,  2.,  5.], dtype=float32)
 ```
 
 ### Mảng Numpy
+
+#### Arrays
+
+Mảng NumPy về cơ bản chỉ là danh sách Python với các tính năng bổ sung. Trên thực tế, bạn có thể dễ dàng chuyển đổi danh sách Python thành mảng Numpy bằng cách sử dụng hàm ***np.array*** lấy danh sách Python làm đối số bắt buộc. Hàm này cũng có khá nhiều đối số từ khóa, nhưng đối số chính cần biết là ***dtype***. Đối số từ khóa ***dtype*** lấy type NumPy và chuyển mảng theo cách thủ công sang type đã chỉ định.
+
+Đoạn mã dưới đây là một ví dụ về cách sử dụng np.arrayđể tạo ma trận 2-D. Lưu ý rằng mảng được truyền thủ công tới ***np.float32.***
+
+```python
+import numpy as np
+
+arr = np.array([[0, 1, 2], [3, 4, 5]],
+               dtype=np.float32)
+print(repr(arr))
+```
+
+**Output:**
+
+```output
+array([[0., 1., 2.],
+       [3., 4., 5.]], dtype=float32)
+```
+
+Khi các phần tử của mảng NumPy là các kiểu hỗn hợp thì loại của mảng sẽ được nâng cấp lên loại cấp cao nhất. Điều này có nghĩa là nếu đầu vào mảng có hỗn hợp các phần tử int và float, tất cả các số nguyên sẽ được chuyển sang giá trị tương đương với dấu phẩy động của chúng. Nếu một mảng được trộn lẫn các phần tử int, float, và string, mọi thứ đều được chuyển thành chuỗi.
+
+Mã dưới đây là một ví dụ về np.array upcasting. Cả hai số nguyên đều được chuyển sang dạng dấu phẩy động tương đương của chúng.
+
+```python
+arr = np.array([0, 0.1, 2])
+print(repr(arr))
+```
+
+**Output:**
+
+```output
+array([0. , 0.1, 2. ])
+```
+
+#### Copying
+
+#### Casting
+
+#### NaN
+
+#### Infinity
 
 ### Khái niệm cơ bản về Numpy
 
