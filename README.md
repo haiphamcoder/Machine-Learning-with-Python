@@ -290,9 +290,164 @@ array([ 5,  7,  9, 11], dtype=int32)
 
 #### Reshaping data
 
+Hàm chúng tôi sử dụng để định hình lại dữ liệu trong NumPy là ***np.reshape***. Nó lấy một mảng và một hình dạng mới làm đối số bắt buộc. Hình dạng mới phải chứa chính xác tất cả các phần tử từ mảng đầu vào. Ví dụ: chúng ta có thể định hình lại một mảng có 12 phần tử thành (4, 3), nhưng chúng ta không thể định hình lại nó thành (4, 4).
+
+Chúng ta được phép sử dụng giá trị đặc biệt -1 cho nhiều nhất một chiều của hình dạng mới. Chiều có giá trị -1 sẽ nhận giá trị cần thiết để cho phép hình dạng mới chứa tất cả các phần tử của mảng.
+
+Đoạn mã dưới đây cho thấy cách sử dụng ví dụ của np.reshape.
+
+```python
+arr = np.arange(8)
+
+reshaped_arr = np.reshape(arr, (2, 4))
+print(repr(reshaped_arr))
+print('New shape: {}'.format(reshaped_arr.shape))
+
+reshaped_arr = np.reshape(arr, (-1, 2, 2))
+print(repr(reshaped_arr))
+print('New shape: {}'.format(reshaped_arr.shape))
+```
+
+**Output:**
+
+```output
+array([[0, 1, 2, 3],
+       [4, 5, 6, 7]])
+New shape: (2, 4)
+array([[[0, 1],
+        [2, 3]],
+
+       [[4, 5],
+        [6, 7]]])
+New shape: (2, 2, 2)
+```
+
+Trong khi ***np.reshape*** có thể thực hiện bất kỳ tiện ích định hình lại nào mà chúng ta cần, NumPy cung cấp một hàm vốn có để làm phẳng một mảng. Làm phẳng một mảng sẽ định hình lại nó thành mảng 1D. Vì chúng ta cần làm phẳng dữ liệu khá thường xuyên nên đây là một chức năng hữu ích.
+
+Đoạn mã dưới đây làm phẳng một mảng bằng cách sử dụng hàm ***flatten***.
+
+```python
+arr = np.arange(8)
+arr = np.reshape(arr, (2, 4))
+flattened = arr.flatten()
+print(repr(arr))
+print('arr shape: {}'.format(arr.shape))
+print(repr(flattened))
+print('flattened shape: {}'.format(flattened.shape))
+```
+
+**Output:**
+
+```output
+array([[0, 1, 2, 3],
+       [4, 5, 6, 7]])
+arr shape: (2, 4)
+array([0, 1, 2, 3, 4, 5, 6, 7])
+flattened shape: (8,)
+```
+
 #### Transposing
 
+Tương tự như cách người ta thường định hình lại dữ liệu, việc chuyển vị dữ liệu cũng rất phổ biến. Có lẽ chúng ta có dữ liệu lẽ ra phải ở một định dạng cụ thể, nhưng một số dữ liệu mới chúng ta nhận được đã được sắp xếp lại. Chúng ta chỉ có thể chuyển đổi dữ liệu bằng cách sử dụng hàm ***np.transpose***, để chuyển đổi nó sang định dạng thích hợp.
+
+Đoạn mã dưới đây cho thấy một ví dụ về cách sử dụng hàm ***np.transpose***. Các hàng ma trận trở thành cột sau khi chuyển vị.
+
+```python
+arr = np.arange(8)
+arr = np.reshape(arr, (4, 2))
+transposed = np.transpose(arr)
+print(repr(arr))
+print('arr shape: {}'.format(arr.shape))
+print(repr(transposed))
+print('transposed shape: {}'.format(transposed.shape))
+```
+
+**Output:**
+
+```output
+array([[0, 1],
+       [2, 3],
+       [4, 5],
+       [6, 7]])
+arr shape: (4, 2)
+array([[0, 2, 4, 6],
+       [1, 3, 5, 7]])
+transposed shape: (2, 4)
+```
+
+Hàm nhận một đối số đầu tiên bắt buộc, đây sẽ là mảng mà chúng ta muốn chuyển vị. Nó cũng có một đối số từ khóa duy nhất được gọi là ***axes***, đại diện cho hoán vị của kích thước.
+
+Hoán vị là một bộ/danh sách các số nguyên, có cùng độ dài với số chiều trong mảng. Nó cho chúng ta biết nơi để thay đổi kích thước. Ví dụ: nếu hoán vị có 3 ở chỉ mục 1, điều đó có nghĩa là chiều thứ ba cũ của dữ liệu sẽ trở thành chiều thứ hai mới (vì chỉ mục 1 đại diện cho chiều thứ hai).
+
+Đoạn mã dưới đây cho thấy một ví dụ về cách sử dụng ***np.transpose*** hoạt động với đối số từ khóa ***axes***. Thuộc tính ***shape*** cho biết hình dạng của mảng.
+
+```python
+arr = np.arange(24)
+arr = np.reshape(arr, (3, 4, 2))
+transposed = np.transpose(arr, axes=(1, 2, 0))
+print('arr shape: {}'.format(arr.shape))
+print('transposed shape: {}'.format(transposed.shape))
+```
+
+**Output:**
+
+```output
+arr shape: (3, 4, 2)
+transposed shape: (4, 2, 3)
+```
+
+Trong ví dụ này, chiều thứ nhất cũ trở thành chiều thứ ba mới, chiều thứ hai cũ trở thành chiều thứ nhất mới và chiều thứ ba cũ trở thành chiều thứ hai mới. Giá trị mặc định cho ***axes*** là sự đảo ngược kích thước (ví dụ: đối với dữ liệu 3-D, mặc định ***axes*** giá trị là [2, 1, 0]).
+
 #### Zeros and ones
+
+Đôi khi, chúng ta cần tạo các mảng chỉ chứa 0 hoặc 1. Ví dụ: vì dữ liệu nhị phân được gắn nhãn 0 và 1, nên chúng ta có thể cần tạo các tập dữ liệu giả chỉ có một nhãn. Để tạo các mảng này, NumPy cung cấp các hàm ***np.zeros*** và ***np.ones***. Cả hai đều có cùng đối số, chỉ bao gồm một đối số bắt buộc, hình dạng mảng. Các chức năng này cũng cho phép ép kiểu thủ công bằng cách sử dụng đối số ***dtype***.
+
+Đoạn mã dưới đây cho thấy cách sử dụng ví dụ của ***np.zeros*** và ***np.ones***.
+
+```python
+arr = np.zeros(4)
+print(repr(arr))
+
+arr = np.ones((2, 3))
+print(repr(arr))
+
+arr = np.ones((2, 3), dtype=np.int32)
+print(repr(arr))
+```
+
+**Output:**
+
+```output
+array([0., 0., 0., 0.])
+array([[1., 1., 1.],
+       [1., 1., 1.]])
+array([[1, 1, 1],
+       [1, 1, 1]], dtype=int32)
+```
+
+Nếu chúng ta muốn tạo một mảng 0 hoặc 1 có hình dạng giống như mảng khác, chúng ta có thể sử dụng ***np.zeros_like*** và ***np.ones_like***.
+
+Đoạn mã dưới đây cho thấy cách sử dụng ví dụ của ***np.zeros_like*** và ***np.ones_like***.
+
+```python
+arr = np.array([[1, 2], [3, 4]])
+print(repr(np.zeros_like(arr)))
+
+arr = np.array([[0., 1.], [1.2, 4.]])
+print(repr(np.ones_like(arr)))
+print(repr(np.ones_like(arr, dtype=np.int32)))
+```
+
+**Output:**
+
+```output
+array([[0, 0],
+       [0, 0]])
+array([[1., 1.],
+       [1., 1.]])
+array([[1, 1],
+       [1, 1]], dtype=int32)
+```
 
 ### Toán học
 
