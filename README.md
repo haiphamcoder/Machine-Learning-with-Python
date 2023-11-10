@@ -20,3 +20,85 @@ Học máy (ML - Machine Learning) là nhánh khoa học liên quan đến các 
 Nếu có thể có được các tập dữ liệu huấn luyện được gắn nhãn đủ lớn thì học có giám sát là cách tốt nhất. Tuy nhiên, thường rất khó để có được các bộ dữ liệu được dán nhãn đầy đủ, đó là lý do tại sao nhiều nhiệm vụ yêu cầu học không giám sát hoặc học bán giám sát (sự kết hợp giữa học có giám sát và không giám sát). Quyết định sử dụng loại phương pháp học nào chỉ là bước đầu tiên để tạo ra mô hình học máy. Bạn cũng cần chọn kiến ​​trúc mô hình phù hợp cho nhiệm vụ của mình và quan trọng nhất là có thể xử lý dữ liệu thành quy trình đào tạo và diễn giải/phân tích kết quả mô hình.
 
 ### Machine Learning vs Artificial Intelligence vs Data Science
+
+Mọi người thường sử dụng các thuật ngữ “học máy”, “trí tuệ nhân tạo” và “khoa học dữ liệu” thay thế cho nhau. Trên thực tế, học máy là một tập hợp con của trí tuệ nhân tạo (AI) và có mối liên hệ chặt chẽ với khoa học dữ liệu. Trí tuệ nhân tạo xử lý bất kỳ kỹ thuật nào cho phép máy móc hiển thị “trí thông minh”, tương tự như con người. Học máy là một trong những kỹ thuật chính được sử dụng để tạo ra trí tuệ nhân tạo, nhưng các kỹ thuật không phải ML khác (ví dụ: cắt tỉa alpha-beta, hệ thống dựa trên quy tắc) cũng được sử dụng rộng rãi trong AI.
+
+Mặt khác, khoa học dữ liệu liên quan đến việc thu thập thông tin chi tiết từ bộ dữ liệu. Theo truyền thống, các nhà khoa học dữ liệu đã sử dụng các phương pháp thống kê để thu thập những hiểu biết này. Tuy nhiên, khi học máy tiếp tục phát triển, nó cũng đã thâm nhập vào lĩnh vực khoa học dữ liệu.
+
+Trong ngành, bất kỳ nhà khoa học dữ liệu hoặc nhà nghiên cứu AI nào cũng cần có hiểu biết tốt về học máy. Học máy trong công nghiệp đã cho phép chúng ta tạo ra các hệ thống tự động tuyệt vời. Các hệ thống này đã đạt được hoặc thậm chí đôi khi vượt quá hiệu suất tốt nhất của con người trong các lĩnh vực tương ứng của chúng. Một ví dụ điển hình là AlphaGo, một hệ thống dựa trên máy học đã đánh bại những người chơi cờ vây giỏi nhất thế giới.
+
+### 7 Bước của Quy trình Học Máy
+
+1. **Thu thập dữ liệu:** Quá trình trích xuất các tập dữ liệu thô cho tác vụ học máy. Dữ liệu này có thể đến từ nhiều nơi khác nhau, từ các tài nguyên trực tuyến nguồn mở đến nguồn cung ứng cộng đồng có trả phí. Bước đầu tiên của quá trình học máy được cho là quan trọng nhất. Nếu dữ liệu bạn thu thập có chất lượng kém hoặc không liên quan thì mô hình bạn đào tạo cũng sẽ có chất lượng kém.
+2. **Xử lý và chuẩn bị dữ liệu:** Sau khi thu thập dữ liệu liên quan, bạn cần xử lý dữ liệu đó và đảm bảo rằng dữ liệu đó ở định dạng có thể sử dụng được để đào tạo mô hình học máy. Điều này bao gồm xử lý dữ liệu bị thiếu, xử lý các dữ liệu ngoại lệ, v.v.
+3. **Kỹ thuật tính năng:** Sau khi bạn đã thu thập và xử lý tập dữ liệu của mình, bạn có thể sẽ cần phải chuyển đổi một số tính năng (và đôi khi thậm chí loại bỏ một số tính năng) để tối ưu hóa mức độ đào tạo của mô hình về dữ liệu.
+4. **Lựa chọn mô hình:** Dựa trên tập dữ liệu, bạn sẽ chọn kiến ​​trúc mô hình nào sẽ sử dụng. Đây là một trong những nhiệm vụ chính của kỹ sư công nghiệp. Thay vì cố gắng đưa ra một kiến ​​trúc mô hình hoàn toàn mới, hầu hết các nhiệm vụ có thể được thực hiện triệt để với kiến ​​trúc hiện có (hoặc kết hợp các kiến ​​trúc mô hình).
+5. **Đường ống dữ liệu và đào tạo mô hình:** Sau khi chọn kiến ​​trúc mô hình, bạn sẽ tạo một đường ống dữ liệu để đào tạo mô hình. Điều này có nghĩa là tạo ra một luồng quan sát dữ liệu theo đợt liên tục để huấn luyện mô hình một cách hiệu quả. Vì quá trình đào tạo có thể mất nhiều thời gian nên bạn muốn đường dẫn dữ liệu của mình hiệu quả nhất có thể.
+6. **Xác thực mô hình:** Sau khi đào tạo mô hình trong một khoảng thời gian vừa đủ, bạn sẽ cần xác thực hiệu suất của mô hình trên một phần được giữ lại của tập dữ liệu tổng thể. Dữ liệu này cần phải đến từ cùng một phân phối cơ bản như tập dữ liệu huấn luyện nhưng cần phải là dữ liệu khác mà mô hình chưa từng thấy trước đây.
+7. **Tính bền vững của mô hình:** Cuối cùng, sau khi đào tạo và xác nhận hiệu suất của mô hình, bạn cần có khả năng lưu đúng trọng số của mô hình và có thể đưa mô hình vào sản xuất. Điều này có nghĩa là thiết lập một quy trình mà người dùng mới có thể dễ dàng sử dụng mô hình được đào tạo trước của bạn để đưa ra dự đoán.
+
+Sau khi tham gia khóa học này, bạn sẽ có thể thực hiện quy trình và làm sạch tập dữ liệu thô, đào tạo mô hình học máy trên dữ liệu đó và xác thực hiệu suất của mô hình. Cụ thể, bạn sẽ có thể:
+
+- **Lấy một tập dữ liệu thô và xử lý nó cho một nhiệm vụ nhất định.** Điều này có nghĩa là xử lý dữ liệu bị thiếu và các ngoại lệ, chuẩn hóa và chuyển đổi các tính năng, tìm ra tính năng nào phù hợp nhất với nhiệm vụ và chọn ra sự kết hợp tốt nhất của các tính năng để sử dụng.
+- **Chọn kiến ​​trúc mô hình chính xác để sử dụng dựa trên dữ liệu.** Nhiều người sẽ luôn mặc định sử dụng mạng thần kinh lớn cho bất kỳ tác vụ học máy nào, nhưng nhiều khi điều này là không cần thiết và thậm chí có thể ảnh hưởng đến hiệu suất cuối cùng của mô hình nếu tập dữ liệu không đủ lớn.
+- **Viết mã mô hình học máy và huấn luyện nó trên dữ liệu đã được xử lý.** Xác thực hiệu suất của mô hình trên dữ liệu được cung cấp và hiểu các kỹ thuật để cải thiện hiệu suất của mô hình.
+
+## Thao tác dữ liệu với Numpy
+
+### Giới thiệu
+
+#### Xử lý dữ liệu
+
+Khi được hỏi về mô hình thành công của Google, Peter Norvig, giám đốc nghiên cứu của Google, đã có câu nói nổi tiếng:
+
+    “Chúng tôi không có thuật toán tốt hơn bất kỳ ai khác, chúng tôi chỉ có nhiều dữ liệu hơn mà thôi.” 
+
+Mặc dù có thể là một cách đánh giá thấp (với số lượng nhân tài được tuyển dụng tại Google), nhưng câu trích dẫn này mang lại cảm giác về tầm quan trọng của dữ liệu để đạt được kết quả thành công.
+
+Mọi người thường thảo luận về tầm quan trọng của dữ liệu trong bối cảnh học máy. Cho dù mô hình học máy phức tạp đến đâu, nó cũng sẽ không hoạt động tốt trừ khi có lượng dữ liệu hợp lý để đào tạo. Mặt khác, với một tập dữ liệu huấn luyện lớn và đa dạng, một mô hình học sâu tốt sẽ hoạt động tốt hơn đáng kể so với các thuật toán không học sâu.
+
+Tuy nhiên, dữ liệu không chỉ giới hạn ở việc học máy. Các công ty sử dụng dữ liệu để xác định xu hướng khách hàng, các đảng chính trị sử dụng dữ liệu để xác định nhân khẩu học nào họ nên nhắm mục tiêu, các đội thể thao sử dụng dữ liệu để phân tích người chơi, v.v.
+
+|                                                        ![Alt text](image.png)                                                         |
+| :-----------------------------------------------------------------------------------------------------------------------------------: |
+| Dữ liệu ví dụ về bóng chày được sử dụng trong sabermetrics . Khái niệm này đã được phổ biến rộng rãi nhờ bộ phim Moneyball năm 2011 . |
+
+Việc sử dụng dữ liệu phổ biến khiến cho việc xử lý dữ liệu , hành động chuyển đổi dữ liệu thô thành dạng có ý nghĩa, trở thành một kỹ năng cần thiết cần phải có.
+
+#### NumPy
+
+Nhiều kịch bản liên quan đến chủ yếu là các tập dữ liệu số. Ví dụ: dữ liệu y tế chứa nhiều số liệu, chẳng hạn như chiều cao, cân nặng và huyết áp. Hơn nữa, phần lớn các mạng thần kinh sử dụng dữ liệu đầu vào là số hoặc đã được chuyển đổi sang dạng số.
+
+Khi chúng ta xử lý dữ liệu số, thư viện Python tốt nhất nên sử dụng là NumPy . Thư viện NumPy cho phép chúng ta thực hiện nhiều thao tác trên dữ liệu số và chuyển đổi dữ liệu sang các dạng dễ sử dụng hơn.
+
+```python
+import numpy as np  # import the NumPy library
+
+# Initializing a NumPy array
+arr = np.array([-1, 2, 5], dtype=np.float32)
+
+# Print the representation of the array
+print(repr(arr))
+```
+
+```output
+array([-1.,  2.,  5.], dtype=float32)
+```
+
+### Mảng Numpy
+
+### Khái niệm cơ bản về Numpy
+
+### Toán học
+
+### Ngẫu nhiên
+
+### Lập chỉ mục
+
+### Lọc
+
+### Số liệu thống kê
+
+### Tổng hợp
+
+### Lưu dữ liệu
