@@ -606,7 +606,188 @@ array([[  4,   4],
        [-11, -10]])
 ```
 
-### Ngẫu nhiên
+### Random
+
+#### Random integers
+
+Tương tự với mô-đun random trong Python, NumPy có mô-đun con riêng để tạo số giả ngẫu nhiên được gọi là ***np.random***. Nó cung cấp tất cả các hoạt động ngẫu nhiên cần thiết và mở rộng nó sang mảng đa chiều. Để tạo số nguyên giả ngẫu nhiên, chúng ta sử dụng hàm ***np.random.randint***.
+
+Đoạn mã dưới đây cho thấy cách sử dụng ví dụ của ***np.random.randint***.
+
+```python
+print(np.random.randint(5))
+print(np.random.randint(5))
+print(np.random.randint(5, high=6))
+
+random_arr = np.random.randint(-3, high=14,
+                               size=(2, 2))
+print(repr(random_arr))
+```
+
+**Output:**
+
+```output
+1
+2
+5
+array([[10, -2],
+       [10, -1]])
+```
+
+Hàm ***np.random.randint*** nhận một đối số bắt buộc duy nhất, điều này thực sự phụ thuộc vào đối số ***high***. Nếu như ***high=None*** (là giá trị mặc định), khi đó đối số bắt buộc đại diện cho đầu trên (không bao gồm) của phạm vi, với đầu dưới là 0. Cụ thể, nếu đối số bắt buộc là n, thì số nguyên ngẫu nhiên được chọn thống nhất từ ​​phạm vi [0, n).
+
+Nếu như ***high*** không phải ***None***, thì đối số được yêu cầu sẽ đại diện cho đầu dưới (được bao gồm) của phạm vi, trong khi ***high*** đại diện cho đầu trên (không bao gồm) của phạm vi.
+
+Đối số ***size*** chỉ định kích thước của mảng đầu ra, trong đó mỗi số nguyên trong mảng được rút ngẫu nhiên từ phạm vi đã chỉ định. Như một mặc định, ***np.random.randint*** trả về một số nguyên duy nhất.
+
+#### Utility functions
+
+Một số hàm tiện ích cơ bản của mô-đun ***np.random*** là ***np.random.seed*** và ***np.random.shuffle***. Chúng ta sử dụng ***np.random.seed*** để đặt hạt giống ngẫu nhiên, cho phép chúng ta kiểm soát đầu ra của các hàm giả ngẫu nhiên. Hàm lấy một số nguyên duy nhất làm đối số, biểu thị hạt giống ngẫu nhiên.
+
+Đoạn mã dưới đây sử dụng np.random.seed với cùng một hạt giống ngẫu nhiên. Lưu ý rằng kết quả đầu ra của các hàm ngẫu nhiên trong mỗi lần chạy tiếp theo giống hệt nhau khi chúng ta đặt cùng một hạt giống ngẫu nhiên.
+
+```python
+np.random.seed(1)
+print(np.random.randint(10))
+random_arr = np.random.randint(3, high=100,
+                               size=(2, 2))
+print(repr(random_arr))
+
+# New seed
+np.random.seed(2)
+print(np.random.randint(10))
+random_arr = np.random.randint(3, high=100,
+                               size=(2, 2))
+print(repr(random_arr))
+
+# Original seed
+np.random.seed(1)
+print(np.random.randint(10))
+random_arr = np.random.randint(3, high=100,
+                               size=(2, 2))
+print(repr(random_arr))
+```
+
+**Output:**
+
+```output
+5
+array([[15, 75],
+       [12, 78]])
+8
+array([[18, 75],
+       [25, 46]])
+5
+array([[15, 75],
+       [12, 78]])
+```
+
+Hàm ***np.random.shuffle*** cho phép chúng ta xáo trộn ngẫu nhiên một mảng. Lưu ý rằng việc xáo trộn diễn ra tại chỗ (tức là không có giá trị trả về) và việc xáo trộn mảng đa chiều chỉ xáo trộn chiều thứ nhất.
+
+Đoạn mã dưới đây cho thấy cách sử dụng ví dụ của ***np.random.shuffle***. Lưu ý rằng chỉ có các hàng của matrix bị xáo trộn (tức là chỉ xáo trộn theo chiều thứ nhất).
+
+```python
+vec = np.array([1, 2, 3, 4, 5])
+np.random.shuffle(vec)
+print(repr(vec))
+np.random.shuffle(vec)
+print(repr(vec))
+
+matrix = np.array([[1, 2, 3],
+                   [4, 5, 6],
+                   [7, 8, 9]])
+np.random.shuffle(matrix)
+print(repr(matrix))
+```
+
+**Output:**
+
+```output
+array([3, 5, 1, 4, 2])
+array([5, 3, 1, 4, 2])
+array([[4, 5, 6],
+       [7, 8, 9],
+       [1, 2, 3]])
+```
+
+#### Distributions
+
+Sử dụng ***np.random***, chúng ta cũng có thể lấy mẫu từ phân bố xác suất. Ví dụ, chúng ta có thể sử dụng ***np.random.uniform*** để vẽ các số thực giả ngẫu nhiên từ một phân bố đều.
+
+Đoạn mã dưới đây cho thấy cách sử dụng của ***np.random.uniform***.
+
+```python
+print(np.random.uniform())
+print(np.random.uniform(low=-1.5, high=2.2))
+print(repr(np.random.uniform(size=3)))
+print(repr(np.random.uniform(low=-3.4, high=5.9,
+                             size=(2, 2))))
+```
+
+***Output:***
+
+```output
+0.7984202704391926
+-0.10669850468667441
+array([0.53131693, 0.71241569, 0.92337385])
+array([[-0.2184239 ,  5.31884742],
+       [ 1.39368036, -2.41877372]])
+```
+
+Hàm ***np.random.uniform*** thực sự không có đối số cần thiết. Các đối số từ khóa, ***low*** và ***high***, đại diện cho đầu dưới (bao gồm) và đầu trên (không bao gồm) để lấy mẫu ngẫu nhiên. Vì chúng có giá trị mặc định lần lượt là 0.0 và 1.0 nên đầu ra mặc định của np.random.uniformnằm trong khoảng [0.0, 1.0).
+
+Đối số ***size*** giống như đối số cho ***np.random.randint***, tức là nó đại diện cho kích thước đầu ra của mảng.
+
+Một phân phối phổ biến khác mà chúng ta có thể lấy mẫu là phân phối chuẩn (Gaussian). Hàm mà chúng ta sử dụng là ***np.random.normal***.
+
+Đoạn mã dưới đây cho thấy cách sử dụng của ***np.random.normal***.
+
+```python
+print(np.random.normal())
+print(np.random.normal(loc=1.5, scale=3.5))
+print(repr(np.random.normal(loc=-2.4, scale=4.0,
+                            size=(2, 2))))
+```
+
+**Output:**
+
+```output
+1.3536565199999613
+-4.68169139355606
+array([[  0.87095067,  -7.66376164],
+       [ -1.98329507, -10.75136676]])
+```
+
+Giống ***np.random.uniform***, ***np.random.normal*** không có đối số cần thiết. Các đối số ***loc*** và ***scale*** tương ứng biểu thị giá trị trung bình và độ lệch chuẩn của phân phối chuẩn mà chúng tôi lấy mẫu từ đó.
+
+NumPy cung cấp thêm một số bản phân phối tích hợp khác, được liệt kê [ở đây](https://docs.scipy.org/doc/numpy-1.14.1/reference/routines.random.html).
+
+#### Custom sampling
+
+Mặc dù NumPy cung cấp các bản phân phối tích hợp để lấy mẫu, chúng ta cũng có thể lấy mẫu từ bản phân phối tùy chỉnh với hàm ***np.random.choice***.
+
+Đoạn mã dưới đây cho thấy cách sử dụng ví dụ của ***np.random.choice***.
+
+```python
+colors = ['red', 'blue', 'green']
+print(np.random.choice(colors))
+print(repr(np.random.choice(colors, size=2)))
+print(repr(np.random.choice(colors, size=(2, 2),
+                            p=[0.8, 0.19, 0.01])))
+```
+
+**Output:**
+
+```output
+blue
+array(['red', 'blue'], dtype='<U5')
+array([['red', 'red'],
+       ['red', 'red']], dtype='<U5')
+```
+
+Đối số cần thiết cho ***np.random.choice*** là phân phối tùy chỉnh mà chúng tôi lấy mẫu từ đó. Đối số ***p*** biểu thị xác suất được cung cấp cho từng phần tử trong phân phối đầu vào. Lưu ý rằng danh sách các xác suất cho ***p*** phải có tổng bằng 1.
+
+Trong ví dụ, chúng ta đặt ***p*** như vậy mà 'red' có xác suất được chọn là 0,8 'blue' có xác suất là 0,19 và 'green' có xác suất là 0,01. Khi ***p*** không được đặt, xác suất của mỗi phần tử trong phân phối (và tổng bằng 1) là bằng nhau.
 
 ### Lập chỉ mục
 
