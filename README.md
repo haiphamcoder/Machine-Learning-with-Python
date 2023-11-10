@@ -227,6 +227,73 @@ array([-inf,   1.])
 
 ### Khái niệm cơ bản về Numpy
 
+#### Ranged data
+
+Trong khi ***np.array*** có thể được sử dụng để tạo bất kỳ mảng nào, nó tương đương với việc mã hóa cứng một mảng. Điều này sẽ không hoạt động khi mảng có hàng trăm giá trị. Thay vào đó, NumPy cung cấp tùy chọn để tạo mảng dữ liệu có phạm vi bằng cách sử dụng ***np.arange***. Chức năng này hoạt động rất giống với range trong Python và sẽ luôn trả về mảng 1-D.
+
+Mã bên dưới chứa các ví dụ về cách sử dụng ***np.arange***.
+
+```python
+arr = np.arange(5)
+print(repr(arr))
+
+arr = np.arange(5.1)
+print(repr(arr))
+
+arr = np.arange(-1, 4)
+print(repr(arr))
+
+arr = np.arange(-1.5, 4, 2)
+print(repr(arr))
+```
+
+**Output:**
+
+```output
+array([0, 1, 2, 3, 4])
+array([0., 1., 2., 3., 4., 5.])
+array([-1,  0,  1,  2,  3])
+array([-1.5,  0.5,  2.5])
+```
+
+Đầu ra của ***np.arange*** được quy định như sau:
+
+- Nếu chỉ có một số duy nhất, n, được truyền vào làm đối số, ***np.arange*** sẽ trả về một mảng có tất cả các số nguyên trong phạm vi [0, n).
+- Đối với hai đối số, m và n, ***np.arange*** sẽ trả về một mảng có tất cả các số nguyên trong phạm vi [m, n).
+- Đối với ba đối số, m, n và s, ***np.arange*** sẽ trả về một mảng có các số nguyên trong phạm vi [m, n) sử dụng kích thước bước nhảy là s .
+- Giống ***np.array***, ***np.arange*** thực hiện upcasting. Nó cũng có đối số ***dtype*** để ép kiểu mảng theo cách thủ công.
+
+Để chỉ định số phần tử trong mảng được trả về, thay vì kích thước bước, chúng ta có thể sử dụng hàm ***np.linspace***.
+
+Hàm này nhận hai đối số đầu tiên bắt buộc, tương ứng cho phần đầu và phần cuối của phạm vi. Phần cuối của phạm vi bao gồm trong ***np.linspace***, trừ khi đối số ***endpoint*** được đặt thành False. Để chỉ định số phần tử, chúng ta đặt đối số num (giá trị mặc định của nó là 50).
+
+Đoạn mã dưới đây cho thấy cách sử dụng ví dụ của ***np.linspace***. Nó cũng có đối số ***dtype*** để ép kiểu thủ công.
+
+```python
+arr = np.linspace(5, 11, num=4)
+print(repr(arr))
+
+arr = np.linspace(5, 11, num=4, endpoint=False)
+print(repr(arr))
+
+arr = np.linspace(5, 11, num=4, dtype=np.int32)
+print(repr(arr))
+```
+
+**Output:**
+
+```output
+array([ 5.,  7.,  9., 11.])
+array([5. , 6.5, 8. , 9.5])
+array([ 5,  7,  9, 11], dtype=int32)
+```
+
+#### Reshaping data
+
+#### Transposing
+
+#### Zeros and ones
+
 ### Toán học
 
 ### Ngẫu nhiên
