@@ -451,6 +451,161 @@ array([[1, 1],
 
 ### Toán học
 
+#### Số học
+
+Một trong những mục đích chính của NumPy là thực hiện số học đa chiều. Sử dụng mảng NumPy, chúng ta có thể áp dụng số học cho từng phần tử chỉ bằng một thao tác.
+
+Mã bên dưới hiển thị số học đa chiều với NumPy.
+
+```python
+arr = np.array([[1, 2], [3, 4]])
+# Add 1 to element values
+print(repr(arr + 1))
+# Subtract element values by 1.2
+print(repr(arr - 1.2))
+# Double element values
+print(repr(arr * 2))
+# Halve element values
+print(repr(arr / 2))
+# Integer division (half)
+print(repr(arr // 2))
+# Square element values
+print(repr(arr**2))
+# Square root element values
+print(repr(arr**0.5))
+```
+
+**Output:**
+
+```output
+array([[2, 3],
+       [4, 5]])
+array([[-0.2,  0.8],
+       [ 1.8,  2.8]])
+array([[2, 4],
+       [6, 8]])
+array([[0.5, 1. ],
+       [1.5, 2. ]])
+array([[0, 1],
+       [1, 2]])
+array([[ 1,  4],
+       [ 9, 16]])
+array([[1.        , 1.41421356],
+       [1.73205081, 2.        ]])
+```
+
+Sử dụng số học NumPy, chúng ta có thể dễ dàng sửa đổi lượng lớn dữ liệu số chỉ bằng một vài thao tác. Ví dụ: chúng ta có thể chuyển đổi tập dữ liệu về nhiệt độ Fahrenheit sang dạng C tương đương của chúng.
+
+Mã bên dưới chuyển đổi độ F sang độ C trong NumPy.
+
+```python
+def f2c(temps):
+  return (5/9)*(temps-32)
+
+fahrenheits = np.array([32, -4, 14, -40])
+celsius = f2c(fahrenheits)
+print('Celsius: {}'.format(repr(celsius)))
+```
+
+**Output:**
+
+```output
+Celsius: array([  0., -20., -10., -40.])
+```
+
+Điều quan trọng cần lưu ý là việc thực hiện số học trên mảng NumPy không làm thay đổi mảng ban đầu mà thay vào đó tạo ra một mảng mới là kết quả của phép toán số học.
+
+#### Hàm phi tuyến tính
+
+Ngoài các phép toán số học cơ bản, NumPy còn cho phép bạn sử dụng các hàm phi tuyến tính như hàm mũ và logarit.
+
+Hàm ***np.exp*** thực hiện hàm mũ cơ số e trên một mảng, trong khi hàm ***np.exp2*** thực hiện hàm mũ cơ số 2. Tương tự như vậy, ***np.log***, ***np.log2***, Và ***np.log10*** tất cả đều thực hiện logarit trên một mảng đầu vào, sử dụng cơ số e, cơ số 2 và cơ số 10 tương ứng.
+
+Mã bên dưới hiển thị các hàm mũ và logarit khác nhau với NumPy. Lưu ý rằng ***np.e*** Và ***np.pi*** lần lượt biểu thị các hằng số toán học e và π.
+
+```python
+arr = np.array([[1, 2], [3, 4]])
+# Raised to power of e
+print(repr(np.exp(arr)))
+# Raised to power of 2
+print(repr(np.exp2(arr)))
+
+arr2 = np.array([[1, 10], [np.e, np.pi]])
+# Natural logarithm
+print(repr(np.log(arr2)))
+# Base 10 logarithm
+print(repr(np.log10(arr2)))
+```
+
+**Output:**
+
+```output
+array([[ 2.71828183,  7.3890561 ],
+       [20.08553692, 54.59815003]])
+array([[ 2.,  4.],
+       [ 8., 16.]])
+array([[0.        , 2.30258509],
+       [1.        , 1.14472989]])
+array([[0.        , 1.        ],
+       [0.43429448, 0.49714987]])
+```
+
+Để thực hiện phép toán lũy thừa với bất kỳ tham số nào, chúng ta sử dụng ***np.power***. Đối số đầu tiên của hàm là cơ số, trong khi đối số thứ hai là lũy thừa. Nếu cơ số hoặc lũy thừa là một mảng chứ không phải một số đơn lẻ thì thao tác được áp dụng cho mọi phần tử trong mảng.
+
+Đoạn mã dưới đây hiển thị các ví dụ về việc sử dụng ***np.power***.
+
+```python
+arr = np.array([[1, 2], [3, 4]])
+# Raise 3 to power of each number in arr
+print(repr(np.power(3, arr)))
+arr2 = np.array([[10.2, 4], [3, 5]])
+# Raise arr2 to power of each number in arr
+print(repr(np.power(arr2, arr)))
+```
+
+**Output:**
+
+```output
+array([[ 3,  9],
+       [27, 81]])
+array([[ 10.2,  16. ],
+       [ 27. , 625. ]])
+```
+
+Ngoài số mũ và logarit, NumPy còn có nhiều hàm toán học khác được liệt kê [ở đây](https://docs.scipy.org/doc/numpy/reference/routines.math.html)
+
+#### Phép nhân ma trận
+
+Vì mảng NumPy về cơ bản là vectơ và ma trận, nên có các hàm dành cho tích số chấm (dot product) và phép nhân ma trận. Cụ thể, hàm chính cần sử dụng là ***np.matmul***, lấy hai mảng vectơ/ma trận làm đầu vào và tạo ra tích số chấm hoặc phép nhân ma trận.
+
+Đoạn mã dưới đây hiển thị nhiều ví dụ khác nhau về phép nhân ma trận. Khi cả hai đầu vào đều là 1-D, đầu ra là tích số chấm.
+
+Lưu ý rằng kích thước của hai ma trận đầu vào phải hợp lệ để nhân ma trận. Cụ thể, chiều thứ hai của ma trận thứ nhất phải bằng chiều thứ nhất của ma trận thứ hai, nếu không thì ***np.matmul*** sẽ dẫn đến một ValueError.
+
+```python
+arr1 = np.array([1, 2, 3])
+arr2 = np.array([-3, 0, 10])
+print(np.matmul(arr1, arr2))
+
+arr3 = np.array([[1, 2], [3, 4], [5, 6]])
+arr4 = np.array([[-1, 0, 1], [3, 2, -4]])
+print(repr(np.matmul(arr3, arr4)))
+print(repr(np.matmul(arr4, arr3)))
+# This will result in a ValueError: If we uncomment line 10 and run again.
+#print(repr(np.matmul(arr3, arr3)))
+```
+
+**Output:**
+
+```output
+27
+array([[  5,   4,  -7],
+       [  9,   8, -13],
+       [ 13,  12, -19]])
+array([[  4,   4],
+       [-11, -10]])
+```
+
 ### Ngẫu nhiên
 
 ### Lập chỉ mục
