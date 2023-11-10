@@ -154,9 +154,76 @@ Array b: array([9, 8])
 
 #### Casting
 
+Chúng ta ép kiểu mảng Numpy thông qua hàm astype() của nó. Đối số bắt buộc của hàm là kiểu mới cho mảng. Nó trả về mảng đã chuyển thành kiểu mới.
+
+Mã bên dưới hiển thị một ví dụ về việc ép kiểu bằng cách sử dụng hàm astype(). Thuộc tính dtype trả về kiểu của mảng.
+
+```python
+arr = np.array([0, 1, 2])
+print(arr.dtype)
+arr = arr.astype(np.float32)
+print(arr.dtype)
+```
+
+**Output:**
+
+```output
+int64
+float32
+```
+
 #### NaN
 
+Khi chúng ta không muốn mảng NumPy chứa một giá trị tại một chỉ mục cụ thể, chúng ta có thể sử dụng np.***nan*** để đóng vai trò giữ chỗ. Một cách sử dụng phổ biến cho ***np.nan*** là giá trị điền cho dữ liệu không đầy đủ.
+
+Đoạn mã dưới đây cho thấy một ví dụ về cách sử dụng ***np.nan***. Lưu ý rằng ***np.nan*** không thể đảm nhận một loại số nguyên.
+
+```python
+arr = np.array([np.nan, 1, 2])
+print(repr(arr))
+
+arr = np.array([np.nan, 'abc'])
+print(repr(arr))
+
+# Will result in a ValueError: If we uncomment line 8 and run again.
+#np.array([np.nan, 1, 2], dtype=np.int32)
+np.array([np.nan, 1, 2], dtype=np.float32)
+```
+
+**Output:**
+
+```output
+array([nan,  1.,  2.])
+array(['nan', 'abc'], dtype='<U32')
+```
+
 #### Infinity
+
+Để biểu thị vô cực trong NumPy, chúng ta sử dụng giá trị đặc biệt ***np.inf***. Chúng ta cũng có thể biểu diễn âm vô cực bằng ***-np.inf***.
+
+Đoạn mã dưới đây cho thấy một ví dụ về cách sử dụng ***np.inf***. Lưu ý rằng ***np.inf*** không thể đảm nhận một loại số nguyên.
+
+```python
+print(np.inf > 1000000)
+
+arr = np.array([np.inf, 5])
+print(repr(arr))
+
+arr = np.array([-np.inf, 1])
+print(repr(arr))
+
+# Will result in a OverflowError: If we uncomment line 10 and run again.
+# np.array([np.inf, 3], dtype=np.int32)
+np.array([np.inf, 3], dtype=np.float32)
+```
+
+**Output:**
+
+```output
+True
+array([inf,  5.])
+array([-inf,   1.])
+```
 
 ### Khái niệm cơ bản về Numpy
 
