@@ -791,6 +791,12 @@ Trong ví dụ, chúng ta đặt ***p*** như vậy mà 'red' có xác suất đ
 
 ### Lập chỉ mục
 
+#### Array accessing
+
+#### Slicing
+
+#### Argmin and argmax
+
 ### Lọc
 
 ### Số liệu thống kê
