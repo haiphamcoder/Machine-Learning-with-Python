@@ -793,9 +793,132 @@ Trong ví dụ, chúng ta đặt ***p*** như vậy mà 'red' có xác suất đ
 
 #### Array accessing
 
+Truy cập mảng NumPy giống hệt với truy cập danh sách Python. Đối với mảng nhiều chiều, nó tương đương với việc truy cập danh sách của danh sách Python.
+
+Mã bên dưới hiển thị ví dụ về các truy cập của mảng NumPy.
+
+```python
+arr = np.array([1, 2, 3, 4, 5])
+print(arr[0])
+print(arr[4])
+
+arr = np.array([[6, 3], [0, 2]])
+# Subarray
+print(repr(arr[0]))
+```
+
+**Output:**
+
+```output
+1
+5
+array([6, 3])
+```
+
 #### Slicing
 
+Mảng NumPy cũng hỗ trợ lát cắt. Tương tự như Python, chúng ta sử dụng toán tử dấu hai chấm (tức là arr[:]) để cắt lát. Chúng ta cũng có thể sử dụng chỉ mục phủ định để cắt theo hướng ngược lại.
+
+Mã bên dưới hiển thị các lát mẫu của mảng NumPy 1-D.
+
+```python
+arr = np.array([1, 2, 3, 4, 5])
+print(repr(arr[:]))
+print(repr(arr[1:]))
+print(repr(arr[2:4]))
+print(repr(arr[:-1]))
+print(repr(arr[-2:]))
+```
+
+**Output:**
+
+```output
+array([1, 2, 3, 4, 5])
+array([2, 3, 4, 5])
+array([3, 4])
+array([1, 2, 3, 4])
+array([4, 5])
+```
+
+Đối với mảng nhiều chiều, chúng ta có thể sử dụng dấu phẩy để phân tách các lát cắt theo từng chiều.
+
+Mã bên dưới hiển thị các lát mẫu của mảng NumPy 2-D.
+
+```python
+arr = np.array([[1, 2, 3],
+                [4, 5, 6],
+                [7, 8, 9]])
+print(repr(arr[:]))
+print(repr(arr[1:]))
+print(repr(arr[:, -1]))
+print(repr(arr[:, 1:]))
+print(repr(arr[0:1, 1:]))
+print(repr(arr[0, 1:]))
+```
+
+**Output:**
+
+```output
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+array([[4, 5, 6],
+       [7, 8, 9]])
+array([3, 6, 9])
+array([[2, 3],
+       [5, 6],
+       [8, 9]])
+array([[2, 3]])
+array([2, 3])
+```
+
 #### Argmin and argmax
+
+Ngoài việc truy cập và cắt mảng, việc tìm ra chỉ mục thực tế của các phần tử tối thiểu và tối đa cũng rất hữu ích. Để làm điều này, chúng ta sử dụng hàm ***np.argmin*** Và ***np.argmax***.
+
+Đoạn mã dưới đây cho thấy cách sử dụng ví dụ của ***np.argmin*** và ***np.argmax***. Lưu ý rằng phần tử -6 có chỉ số là 5 trong phiên bản phẳng của arr.
+
+```python
+arr = np.array([[-2, -1, -3],
+                [4, 5, -6],
+                [-3, 9, 1]])
+print(np.argmin(arr[0]))
+print(np.argmax(arr[2]))
+print(np.argmin(arr))
+```
+
+**Output:**
+
+```output
+2
+1
+5
+```
+
+Các hàm ***np.argmin*** Và ***np.argmax*** các có cùng đối số. Đối số bắt buộc là mảng đầu vào và đối số từ khóa axis chỉ định chiều nào sẽ áp dụng thao tác trên đó.
+
+Đoạn mã dưới đây cho thấy cách sử dụng đối số axis cho các chức năng này.
+
+```python
+arr = np.array([[-2, -1, -3],
+                [4, 5, -6],
+                [-3, 9, 1]])
+print(repr(np.argmin(arr, axis=0)))
+print(repr(np.argmin(arr, axis=1)))
+print(repr(np.argmax(arr, axis=-1)))
+```
+
+**Output:**
+
+```output
+array([2, 0, 1])
+array([2, 2, 0])
+array([1, 1, 1])
+```
+
+Trong ví dụ trên, sử dụng ***axis=0*** có nghĩa là hàm đã tìm thấy chỉ mục của phần tử tối thiểu cho mỗi cột. Khi chúng ta sử dụng ***axis=1***, hàm tìm thấy chỉ mục của phần tử tối thiểu cho mỗi hàng.
+
+Cài đặt ***axis=-1*** chỉ có nghĩa là chúng ta áp dụng hàm trên chiều cuối cùng. Trong trường hợp này, ***axis=-1*** tương đương với ***axis=1***.
 
 ### Lọc
 
