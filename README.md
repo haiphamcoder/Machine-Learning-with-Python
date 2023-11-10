@@ -127,6 +127,31 @@ array([0. , 0.1, 2. ])
 
 #### Copying
 
+Tương tự như danh sách Python, khi chúng ta tạo tham chiếu đến mảng NumPy, nó không tạo ra một mảng khác. Do đó, nếu chúng ta thay đổi một giá trị bằng biến tham chiếu, nó cũng sẽ thay đổi mảng ban đầu. Chúng ta giải quyết vấn đề này bằng cách sử dụng chức năng copy() vốn có của mảng Numpy. Hàm không có đối số bắt buộc và nó trả về mảng đã sao chép.
+
+Trong ví dụ mã bên dưới, c là một tham chiếu đến a, trong khi d là một bản sao. Vì thế, việc thay đổi c dẫn đến sự thay đổi tương tự trong a, trong khi thay đổi d không làm thay đổi giá trị của b.
+
+```python
+a = np.array([0, 1])
+b = np.array([9, 8])
+c = a
+print('Array a: {}'.format(repr(a)))
+c[0] = 5
+print('Array a: {}'.format(repr(a)))
+
+d = b.copy()
+d[0] = 6
+print('Array b: {}'.format(repr(b)))
+```
+
+**Output:**
+
+```output
+Array a: array([0, 1])
+Array a: array([5, 1])
+Array b: array([9, 8])
+```
+
 #### Casting
 
 #### NaN
