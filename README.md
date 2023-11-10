@@ -922,6 +922,12 @@ Cài đặt ***axis=-1*** chỉ có nghĩa là chúng ta áp dụng hàm trên c
 
 ### Lọc
 
+#### Filtering data
+
+#### Filtering in NumPy
+
+#### Axis-wise filtering
+
 ### Số liệu thống kê
 
 ### Tổng hợp
