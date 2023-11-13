@@ -1153,3 +1153,15 @@ array([[ 4,  5, -6],
 #### Loading
 
 ## Phân tích dữ liệu với Pandas
+
+## Tiền xử lý dữ liệu với Scikit-learn
+
+## Mô hình hóa dữ liệu với Scikit-learn
+
+## Phân cụm với Scikit-learn
+
+## Gradient Boosting với XGBoost
+
+## Học sâu với TensorFlow
+
+## Học sâu với Keras
