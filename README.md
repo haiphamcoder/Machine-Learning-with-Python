@@ -924,9 +924,215 @@ Cài đặt ***axis=-1*** chỉ có nghĩa là chúng ta áp dụng hàm trên c
 
 #### Filtering data
 
+Đôi khi chúng ta có dữ liệu chứa các giá trị mà chúng ta không muốn sử dụng. Ví dụ: khi theo dõi những cầu thủ đánh bóng giỏi nhất trong môn bóng chày, chúng ta có thể chỉ muốn sử dụng dữ liệu trung bình về số lần đánh bóng trên 0,300. Trong trường hợp này, chúng ta chỉ nên lọc dữ liệu tổng thể để tìm những giá trị mà chúng ta muốn.
+
+Chìa khóa để lọc dữ liệu là thông qua các phép toán quan hệ cơ bản, ví dụ: ==, >, v.v. Trong NumPy, chúng ta có thể áp dụng các phép toán quan hệ cơ bản theo từng phần tử trên mảng.
+
+Mã bên dưới hiển thị các phép toán quan hệ trên mảng NumPy. Toán tử ***~*** đại diện cho một phủ định boolean, tức là nó đảo ngược từng giá trị chân lý trong mảng.
+
+```python
+arr = np.array([[0, 2, 3],
+                [1, 3, -6],
+                [-3, -2, 1]])
+print(repr(arr == 3))
+print(repr(arr > 0))
+print(repr(arr != 1))
+# Negated from the previous step
+print(repr(~(arr != 1)))
+```
+
+***Output:***
+
+```output
+array([[False, False,  True],
+       [False,  True, False],
+       [False, False, False]])
+array([[False,  True,  True],
+       [ True,  True, False],
+       [False, False,  True]])
+array([[ True,  True,  True],
+       [False,  True,  True],
+       [ True,  True, False]])
+array([[False, False, False],
+       [ True, False, False],
+       [False, False,  True]])
+```
+
+Điều cần lưu ý là ***np.nan*** không thể được sử dụng với bất kỳ phép toán quan hệ nào. Thay vào đó, chúng ta sử dụng ***np.isnan*** để lọc vị trí của ***np.nan***.
+
+Đoạn mã dưới đây sử dụng ***np.isnan*** để xác định vị trí nào của mảng chứa các giá trị ***np.nan***.
+
+```python
+arr = np.array([[0, 2, np.nan],
+                [1, np.nan, -6],
+                [np.nan, -2, 1]])
+print(repr(np.isnan(arr)))
+```
+
+***Output:***
+
+```output
+array([[False, False,  True],
+       [False,  True, False],
+       [ True, False, False]])
+```
+
+Mỗi mảng boolean trong các ví dụ của chúng ta đại diện cho vị trí của các phần tử mà chúng ta muốn lọc. Cách chúng ta thực hiện việc lọc là thông qua hàm ***[np.where](https://numpy.org/doc/stable/reference/generated/numpy.where.html)***.
+
 #### Filtering in NumPy
 
+Hàm ***np.where*** nhận đối số đầu tiên bắt buộc, đó là một mảng boolean trong đó True đại diện cho vị trí của các phần tử mà chúng ta muốn lọc. Khi hàm chỉ được áp dụng với đối số đầu tiên, nó sẽ trả về một bộ mảng 1-D.
+
+Bộ dữ liệu sẽ có kích thước bằng số chiều trong dữ liệu và mỗi mảng đại diện cho True chỉ số cho kích thước tương ứng. Lưu ý rằng các mảng trong bộ dữ liệu sẽ có cùng độ dài, bằng số lượng các phần tử True trong đối số đầu vào.
+
+Đoạn mã dưới đây cho thấy cách sử dụng ***np.where*** với một đối số duy nhất.
+
+```python
+print(repr(np.where([True, False, True])))
+
+arr = np.array([0, 3, 5, 3, 1])
+print(repr(np.where(arr == 3)))
+
+arr = np.array([[0, 2, 3],
+                [1, 0, 0],
+                [-3, 0, 0]])
+x_ind, y_ind = np.where(arr != 0)
+print(repr(x_ind)) # x indices of non-zero elements
+print(repr(y_ind)) # y indices of non-zero elements
+print(repr(arr[x_ind, y_ind]))
+```
+
+***Output:***
+
+```output
+(array([0, 2]),)
+(array([1, 3]),)
+array([0, 0, 1, 2])
+array([1, 2, 0, 0])
+array([ 2,  3,  1, -3])
+```
+
+Điều thú vị về ***np.where*** là nó phải được áp dụng với đúng 1 hoặc 3 đối số. Khi chúng ta sử dụng 3 đối số thì đối số đầu tiên vẫn là mảng boolean. Tuy nhiên, hai đối số tiếp theo đại diện cho các giá trị thay thế True và False tương ứng. Đầu ra của hàm bây giờ trở thành một mảng có hình dạng giống như đối số đầu tiên.
+
+Đoạn mã dưới đây cho thấy cách sử dụng ***np.where*** với 3 đối số.
+
+```python
+np_filter = np.array([[True, False], [False, True]])
+positives = np.array([[1, 2], [3, 4]])
+negatives = np.array([[-2, -5], [-1, -8]])
+print(repr(np.where(np_filter, positives, negatives)))
+
+np_filter = positives > 2
+print(repr(np.where(np_filter, positives, negatives)))
+
+np_filter = negatives > 0
+print(repr(np.where(np_filter, positives, negatives)))
+```
+
+***Output:***
+
+```output
+array([[ 1, -5],
+       [-1,  4]])
+array([[-2, -5],
+       [ 3,  4]])
+array([[-2, -5],
+       [-1, -8]])
+```
+
+Lưu ý rằng đối số thứ hai và thứ ba của chúng ta nhất thiết phải có hình dạng giống như đối số thứ nhất. Tuy nhiên, nếu chúng ta muốn sử dụng một giá trị thay thế không đổi, ví dụ: -1, chúng ta có thể kết hợp [broadcasting](https://docs.scipy.org/doc/numpy/user/basics.broadcasting.html). Thay vì sử dụng toàn bộ mảng có cùng giá trị, chúng ta chỉ có thể sử dụng chính giá trị đó làm đối số.
+
+Mã bên dưới giới thiệu việc broadcastring với ***np.where***.
+
+```python
+np_filter = np.array([[True, False], [False, True]])
+positives = np.array([[1, 2], [3, 4]])
+print(repr(np.where(np_filter, positives, -1)))
+```
+
+***Output:***
+
+```output
+array([[ 1, -1],
+       [-1,  4]])
+```
+
 #### Axis-wise filtering
+
+Nếu chúng ta muốn lọc dựa trên hàng hoặc cột dữ liệu, chúng ta có thể sử dụng hàm ***np.any*** và ***np.all***. Cả hai hàm đều nhận cùng các đối số và trả về một giá trị boolean hoặc một mảng boolean. Đối số bắt buộc cho cả hai hàm là một mảng boolean.
+
+Đoạn mã dưới đây cho thấy việc sử dụng ***np.any*** và ***np.all*** với một đối số duy nhất.
+
+```python
+arr = np.array([[-2, -1, -3],
+                [4, 5, -6],
+                [3, 9, 1]])
+print(repr(arr > 0))
+print(np.any(arr > 0))
+print(np.all(arr > 0))
+```
+
+***Output:***
+
+```output
+array([[False, False, False],
+       [ True,  True, False],
+       [ True,  True,  True]])
+True
+False
+```
+
+Hàm ***np.any*** tương đương với việc thực hiện phép toán logic OR (||), trong khi hàm ***np.all*** tương đương với logic AND (&&) ở đối số đầu tiên. Hàm ***np.any*** trả về True nếu ngay cả một trong các phần tử trong mảng đáp ứng condition và ***np.all*** chỉ trả về True nếu tất cả các phần tử đều đáp ứng điều kiện. Khi chỉ có một đối số duy nhất được truyền vào, hàm sẽ được áp dụng trên toàn bộ mảng đầu vào, do đó giá trị trả về là một boolean duy nhất.
+
+Tuy nhiên, nếu chúng ta sử dụng đầu vào đa chiều và chỉ định đối số ***axis***, giá trị trả về sẽ là một mảng. Đối số ***axis*** có cùng ý nghĩa như đối với ***np.argmin*** và ***np.argmax*** từ chương trước. sử dụng ***axis=0*** có nghĩa là hàm tìm chỉ mục của phần tử thỏa mãn condition cho mỗi cột. Khi chúng ta sử dụng ***axis=1***, hàm tìm chỉ mục của phần tử thỏa mãn condition cho mỗi hàng.
+
+Cài đặt ***axis=-1*** chỉ có nghĩa là chúng ta áp dụng hàm trên chiều cuối cùng.
+
+Đoạn mã dưới đây hiển thị các ví dụ về việc sử dụng ***np.any*** và ***np.all*** với đối số ***axis***:
+
+```python
+arr = np.array([[-2, -1, -3],
+                [4, 5, -6],
+                [3, 9, 1]])
+print(repr(arr > 0))
+print(repr(np.any(arr > 0, axis=0)))
+print(repr(np.any(arr > 0, axis=1)))
+print(repr(np.all(arr > 0, axis=1)))
+```
+
+***Output:***
+
+```output
+array([[False, False, False],
+       [ True,  True, False],
+       [ True,  True,  True]])
+array([ True,  True,  True])
+array([False,  True,  True])
+array([False, False,  True])
+```
+
+Chúng ta có thể sử dụng ***np.any*** Và ***np.all*** song song với ***np.where*** để lọc toàn bộ hàng hoặc cột dữ liệu.
+
+Trong ví dụ mã bên dưới, chúng ta sử dụng ***np.any*** để thu được một mảng boolean biểu thị các hàng có ít nhất một số dương. Sau đó chúng ta sử dụng mảng boolean làm đầu vào cho ***np.where***, cung cấp cho chúng ta chỉ số thực tế của các hàng có ít nhất một số dương.
+
+![Alt text](image-1.png)
+
+```python
+arr = np.array([[-2, -1, -3],
+                [4, 5, -6],
+                [3, 9, 1]])
+has_positive = np.any(arr > 0, axis=1)
+print(has_positive)
+print(repr(arr[np.where(has_positive)]))
+```
+
+Output:
+
+```output
+[False  True  True]
+array([[ 4,  5, -6],
+       [ 3,  9,  1]])
+```
 
 ### Số liệu thống kê
 
