@@ -1136,6 +1136,20 @@ array([[ 4,  5, -6],
 
 ### Số liệu thống kê
 
+#### Analysis
+
+#### Statistical metrics
+
 ### Tổng hợp
 
+#### Summation
+
+#### Concatenation
+
 ### Lưu dữ liệu
+
+#### Saving
+
+#### Loading
+
+## Phân tích dữ liệu với Pandas
