@@ -1138,13 +1138,145 @@ array([[ 4,  5, -6],
 
 #### Analysis
 
+Việc phân tích dữ liệu về các đặc điểm chính và xu hướng thú vị của nó thường rất hữu ích. Có một số kỹ thuật trong NumPy cho phép chúng ta kiểm tra nhanh các mảng dữ liệu.
+
+Ví dụ: chúng ta có thể thu được giá trị tối thiểu và tối đa của mảng NumPy bằng cách sử dụng hàm vốn có của nó là min Và max. Điều này mang lại cho chúng ta cảm nhận ban đầu về phạm vi của dữ liệu và có thể cảnh báo chúng ta về các giá trị ngoại lệ trong dữ liệu.
+
+Mã bên dưới hiển thị ví dụ về cách sử dụng của hàm min và max:
+
+```python
+arr = np.array([[0, 72, 3],
+                [1, 3, -60],
+                [-3, -2, 4]])
+print(arr.min())
+print(arr.max())
+
+print(repr(arr.min(axis=0)))
+print(repr(arr.max(axis=-1)))
+```
+
+***Output:***
+
+```output
+-60
+72
+array([ -3,  -2, -60])
+array([72,  3,  4])
+```
+
+Đối số ***axis*** giống hệt với cách nó được sử dụng trong ***np.argmin*** Và ***np.argmax*** từ chương về Lập chỉ mục. Trong ví dụ của chúng ta, chúng ta sử dụng ***axis=0*** để tìm một mảng các giá trị nhỏ nhất trong mỗi cột của arr Và axis=1 để tìm một mảng các giá trị lớn nhất trong mỗi hàng của arr.
+
 #### Statistical metrics
+
+NumPy cũng cung cấp các hàm thống kê cơ bản như ***np.mean***, ***np.var***, Và ***np.median***, để tính giá trị trung bình, phương sai và trung vị của dữ liệu tương ứng.
+
+Mã bên dưới cho biết cách lấy số liệu thống kê cơ bản bằng NumPy. Lưu ý rằng áp dụng ***np.median*** mà không có axis là lấy trung vị của mảng phẳng.
+
+```python
+arr = np.array([[0, 72, 3],
+                [1, 3, -60],
+                [-3, -2, 4]])
+print(np.mean(arr))
+print(np.var(arr))
+print(np.median(arr))
+print(repr(np.median(arr, axis=-1)))
+```
+
+***Output:***
+
+```output
+2.0
+977.3333333333334
+1.0
+array([ 3.,  1., -2.])
+```
+
+Mỗi hàm này lấy mảng dữ liệu làm đối số bắt buộc và axis như một đối số từ khóa. Để có danh sách đầy đủ hơn về các hàm thống kê (ví dụ: tính toán phần trăm, tạo biểu đồ, v.v.), hãy xem trang [thống kê](https://docs.scipy.org/doc/numpy/reference/routines.statistics.html) NumPy.
 
 ### Tổng hợp
 
 #### Summation
 
+Như chúng ta đã biết cách tính tổng các giá trị riêng lẻ giữa nhiều mảng. Để tính tổng các giá trị trong một mảng, chúng ta sử dụng hàm [***np.sum***](https://docs.scipy.org/doc/numpy/reference/generated/numpy.sum.html).
+
+Hàm lấy mảng NumPy làm đối số bắt buộc và sử dụng axis là đối số từ khóa. Nếu đối số axis không được chỉ định, ***np.sum*** trả về tổng tổng của mảng. Đoạn mã dưới đây cho thấy cách sử dụng ***np.sum***
+
+```python
+arr = np.array([[0, 72, 3],
+                [1, 3, -60],
+                [-3, -2, 4]])
+print(np.sum(arr))
+print(repr(np.sum(arr, axis=0)))
+print(repr(np.sum(arr, axis=1)))
+```
+
+***Output:***
+
+```output
+18
+array([ -2,  73, -53])
+array([ 75, -56,  -1])
+```
+
+Ngoài các phép toán tính tổng thông thường, NumPy có thể thực hiện tính tổng tích lũy bằng cách sử dụng ***np.cumsum***. Giống ***np.sum***, ***np.cumsum*** cũng lấy mảng NumPy làm đối số bắt buộc và sử dụng ***axis*** là đối số từ khóa. Nếu đối số ***axis*** không được chỉ định, ***np.cumsum*** sẽ trả về tổng tích lũy cho mảng đã được làm phẳng. Đoạn mã dưới đây cho thấy cách sử dụng ***np.cumsum***. Đối với mảng NumPy 2-D, cài đặt axis=0 trả về một mảng có tổng tích lũy trên mỗi cột, trong khi axis=1 trả về mảng có tổng tích lũy trên mỗi hàng. Không cài đặt axis trả về tổng tích lũy của tất cả các giá trị của mảng đã được làm phẳng.
+
+```python
+arr = np.array([[0, 72, 3],
+                [1, 3, -60],
+                [-3, -2, 4]])
+print(repr(np.cumsum(arr)))
+print(repr(np.cumsum(arr, axis=0)))
+print(repr(np.cumsum(arr, axis=1)))
+```
+
+***Output:***
+
+```output
+array([ 0, 72, 75, 76, 79, 19, 16, 14, 18])
+array([[  0,  72,   3],
+       [  1,  75, -57],
+       [ -2,  73, -53]])
+array([[  0,  72,  75],
+       [  1,   4, -56],
+       [ -3,  -5,  -1]])
+```
+
 #### Concatenation
+
+Một phần quan trọng của việc tổng hợp là kết hợp nhiều tập dữ liệu. Trong NumPy, điều này tương đương với việc kết hợp nhiều mảng thành một. Hàm chúng ta sử dụng để thực hiện việc này là ***np.concatenate***. Giống như các hàm tính tổng, ***np.concatenate*** sử dụng ***axis*** là đối số từ khóa. Tuy nhiên, giá trị mặc định cho axis là 0 (tức là chiều 0).
+
+Hơn nữa, đối số cần thiết cho ***np.concatenate*** là danh sách các mảng mà hàm này kết hợp thành một mảng duy nhất.
+
+Đoạn mã dưới đây cho thấy cách sử dụng ***np.concatenate***, tổng hợp các mảng bằng cách nối chúng dọc theo một chiều cụ thể. Đối với mảng 2-D, không thiết lập đối số axis (mặc định là axis=0) nối các mảng theo chiều dọc. Khi chúng ta thiết lập axis=1, các mảng được nối theo chiều ngang.
+
+```python
+arr1 = np.array([[0, 72, 3],
+                 [1, 3, -60],
+                 [-3, -2, 4]])
+arr2 = np.array([[-15, 6, 1],
+                 [8, 9, -4],
+                 [5, -21, 18]])
+print(repr(np.concatenate([arr1, arr2])))
+print(repr(np.concatenate([arr1, arr2], axis=1)))
+print(repr(np.concatenate([arr2, arr1], axis=1)))
+```
+
+***Output:***
+
+```output
+array([[  0,  72,   3],
+       [  1,   3, -60],
+       [ -3,  -2,   4],
+       [-15,   6,   1],
+       [  8,   9,  -4],
+       [  5, -21,  18]])
+array([[  0,  72,   3, -15,   6,   1],
+       [  1,   3, -60,   8,   9,  -4],
+       [ -3,  -2,   4,   5, -21,  18]])
+array([[-15,   6,   1,   0,  72,   3],
+       [  8,   9,  -4,   1,   3, -60],
+       [  5, -21,  18,  -3,  -2,   4]])
+```
 
 ### Lưu dữ liệu
 
