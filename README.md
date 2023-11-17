@@ -1291,16 +1291,36 @@ Nếu như hàm ***np.save*** được gọi với tên của một tệp đã t
 Mã bên dưới hiển thị ví dụ về việc lưu dữ liệu với NumPy:
 
 ```python
+arr = np.array([1, 2, 3])
+# Saves to 'arr.npy'
+np.save('arr.npy', arr)
+# Also saves to 'arr.npy'
+np.save('arr', arr)
+```
 
+#### Loading
+
+Sau khi lưu dữ liệu, chúng ta có thể tải lại dữ liệu bằng cách sử dụng ***np.load***. Đối số bắt buộc của hàm là tên/đường dẫn tệp chứa dữ liệu đã lưu. Nó trả về dữ liệu NumPy chính xác như đã được lưu.
+
+Lưu ý rằng ***np.load*** sẽ cần thêm phần mở rộng ".npy" vào tên/đường dẫn tệp.
+
+Đoạn mã dưới đây cho thấy cách sử dụng ***np.load*** để tải dữ liệu NumPy.
+
+```python
+arr = np.array([1, 2, 3])
+np.save('arr.npy', arr)
+load_arr = np.load('arr.npy')
+print(repr(load_arr))
+
+# Will result in a FileNotFoundError: If we uncomment line 7 and run again.
+#load_arr = np.load('arr')
 ```
 
 ***Output:***
 
 ```output
-
+array([1, 2, 3])
 ```
-
-#### Loading
 
 ## Phân tích dữ liệu với Pandas
 
