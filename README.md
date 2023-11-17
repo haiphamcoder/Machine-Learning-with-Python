@@ -1346,6 +1346,78 @@ Thư viện chúng ta sẽ sử dụng để trực quan hóa dữ liệu trong 
 
 ### Series
 
+#### 1-D data
+
+Tương tự như NumPy, pandas thường xuyên xử lý dữ liệu 1-D và 2-D. Tuy nhiên, chúng ta sử dụng hai đối tượng riêng biệt để xử lý dữ liệu 1-D và 2-D trong pandas. Đối với dữ liệu 1-D, chúng ta sử dụng các đối tượng ***pandas.Series*** mà chúng ta sẽ gọi đơn giản là Series.
+
+Một Series được tạo ra thông qua hàm tạo ***pd.Series***, không có đối số bắt buộc nhưng có nhiều đối số từ khóa.
+
+Đối số từ khóa đầu tiên là data, trong đó chỉ định các phần tử của Series. Nếu như data chưa được thiết lập, ***pd.Series*** trả về một Series trống. Kể từ khi đối số ***data*** hầu như luôn được sử dụng, chúng ta coi nó như đối số đầu tiên thông thường (tức là bỏ qua tiền tố ***data=***).
+
+Tương tự như ***np.array***, pd.Series cũng có thêm đối số từ khóa ***dtype***.
+
+Đoạn mã dưới đây cho thấy cách tạo các đối tượng Pandas Series bằng cách sử dụng pd.Series.
+
+```python
+import pandas as pd
+import numpy as np
+
+# Creating an empty series, will result in DeprecationWarning
+#series = pd.Series()
+
+# Passing dtype as a parameter to Series for an empty series to avoid DeprecationWarning
+# Creating an empty series
+series = pd.Series(dtype='float64')
+# Newline to separate series print statements
+print('{}\n'.format(series))
+
+series = pd.Series(5)
+print('{}\n'.format(series))
+
+series = pd.Series([1, 2, 3])
+print('{}\n'.format(series))
+
+series = pd.Series([1, 2.2]) # upcasting
+print('{}\n'.format(series))
+
+arr = np.array([1, 2])
+series = pd.Series(arr, dtype=np.float32)
+print('{}\n'.format(series))
+
+series = pd.Series([[1, 2], [3, 4]])
+print('{}\n'.format(series))
+```
+
+***Output:***
+
+```output
+Series([], dtype: float64)
+
+0    5
+dtype: int64
+
+0    1
+1    2
+2    3
+dtype: int64
+
+0    1.0
+1    2.2
+dtype: float64
+
+0    1.0
+1    2.0
+dtype: float32
+
+0    [1, 2]
+1    [3, 4]
+dtype: object
+```
+
+#### Index
+
+#### Dictionary input
+
 ### DataFrame
 
 ### Combining
