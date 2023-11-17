@@ -1282,6 +1282,24 @@ array([[-15,   6,   1,   0,  72,   3],
 
 #### Saving
 
+Sau khi thực hiện thao tác dữ liệu với NumPy, bạn nên lưu dữ liệu vào một tệp để sử dụng sau này. Để làm điều này, chúng ta sử dụng hàm ***np.save***.
+
+Đối số thứ hai cho hàm ***np.save*** là dữ liệu NumPy mà chúng ta muốn lưu.
+
+Nếu như hàm ***np.save*** được gọi với tên của một tệp đã tồn tại, nó sẽ ghi đè lên tệp trước đó.
+
+Mã bên dưới hiển thị ví dụ về việc lưu dữ liệu với NumPy:
+
+```python
+
+```
+
+***Output:***
+
+```output
+
+```
+
 #### Loading
 
 ## Phân tích dữ liệu với Pandas
