@@ -1326,11 +1326,23 @@ array([1, 2, 3])
 
 ### Introduction
 
+Trong phần này, bạn sẽ sử dụng Pandas để phân tích dữ liệu của Giải bóng chày Major League (MLB). Dữ liệu được cung cấp bởi Sean Lahman và chứa số liệu thống kê cho mọi cầu thủ, người quản lý và đội trong lịch sử MLB. Cơ sở dữ liệu đầy đủ có thể được tìm thấy và tải xuống [ở đây](http://www.seanlahman.com/baseball-archive/statistics/) .
+
 #### Data analysis
+
+Trước khi thực hiện bất kỳ tác vụ nào với tập dữ liệu, bạn nên thực hiện [phân tích dữ liệu](https://en.wikipedia.org/wiki/Data_analysis) sơ bộ. Phân tích dữ liệu cho phép chúng ta hiểu tập dữ liệu, tìm các giá trị ngoại lệ tiềm năng và tìm ra tính năng nào của tập dữ liệu quan trọng nhất đối với ứng dụng của chúng ta.
 
 #### Pandas
 
+Vì hầu hết các framework học máy (ví dụ: TensorFlow) đều được xây dựng trên Python nên việc sử dụng bộ công cụ phân tích dữ liệu dựa trên Python như pandas sẽ rất có lợi. pandas (tất cả đều là chữ thường) là một công cụ tuyệt vời để xử lý và phân tích dữ liệu trong thế giới thực, với các tiện ích từ phân tích cú pháp nhiều định dạng tệp đến chuyển đổi toàn bộ bảng dữ liệu thành mảng ma trận NumPy.
+
+Trong các chương tiếp theo, chúng ta sẽ đi sâu vào các chức năng phân tích dữ liệu chính của pandas. Để có cái nhìn tổng quan đầy đủ về bộ công cụ pandas, bạn có thể truy cập [pandas website](https://pandas.pydata.org/pandas-docs/stable/).
+
 #### Matplotlib and Pyplot
+
+Một phần thiết yếu của phân tích dữ liệu là tạo biểu đồ và sơ đồ để trực quan hóa dữ liệu. Tương tự như câu nói, "một bức tranh đáng giá cả ngàn lời nói", trực quan hóa dữ liệu có thể truyền tải các xu hướng và mối tương quan dữ liệu chính thông qua một con số duy nhất.
+
+Thư viện chúng ta sẽ sử dụng để trực quan hóa dữ liệu trong Python là Matplotlib. Cụ thể, chúng ta sẽ sử dụng [API pyplot](https://matplotlib.org/api/pyplot_api.html) của [Matplotlib](https://en.wikipedia.org/wiki/Matplotlib), API này cung cấp nhiều công cụ vẽ đồ thị khác nhau, từ vẽ đồ thị đường đơn giản đến hình ảnh nâng cao như bản đồ nhiệt và đồ thị 3-D. Mặc dù chúng ta sẽ chỉ đề cập đến những điều cần thiết cơ bản cho phân tích dữ liệu của mình (ví dụ: biểu đồ đường, biểu đồ hình hộp, v.v.), nhưng bạn có thể tìm thấy tổng quan đầy đủ về Matplotlib [tại đây](https://matplotlib.org/index.html).
 
 ### Series
 
