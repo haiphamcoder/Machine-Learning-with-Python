@@ -1324,6 +1324,38 @@ array([1, 2, 3])
 
 ## Phân tích dữ liệu với Pandas
 
+### Introduction
+
+#### Data analysis
+
+#### Pandas
+
+#### Matplotlib and Pyplot
+
+### Series
+
+### DataFrame
+
+### Combining
+
+### Indexing
+
+### File I/O
+
+### Grouping
+
+### Features
+
+### Filtering
+
+### Sorting
+
+### Metrics
+
+### Plotting
+
+### To NumPy
+
 ## Tiền xử lý dữ liệu với Scikit-learn
 
 ## Mô hình hóa dữ liệu với Scikit-learn
